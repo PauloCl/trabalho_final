@@ -1,0 +1,30 @@
+Array
+(
+    [0] => Array
+        (
+            [id] => 57
+            [nome_animal] => Tobis
+            [nome_dono] => Paulo
+            [animal] => Cachorro
+            [raca] => não sei
+        )
+
+    [1] => Array
+        (
+            [id] => 56
+            [nome_animal] => Tobis
+            [nome_dono] => Paulo
+            [animal] => Cachorro
+            [raca] => não sei
+        )
+
+    [2] => Array
+        (
+            [id] => 55
+            [nome_animal] => Tobis
+            [nome_dono] => Paulo
+            [animal] => Cachorro
+            [raca] => não sei
+        )
+
+)

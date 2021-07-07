@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pet Shop</title>
+</head>
+
+
+<body>
+    
+    <h1 id="titulo">Pet Shop</h1>
+    <div id='container-geral'>
+
+        <div id='container-formulario'>
+        
+            <form >
+                <!-- onsubmit="return false" -->
+                <label for="nome">Nome do Pet</label><br>
+                <input type="text" id="nome" name="nome"><br>
+                <label for="nomedono">Nome do Dono</label><br>
+                <input type="text" id="nomedono" name="nomedono"><br>
+                <label for="animal">Pet:</label><br>
+                <input type="text" id="animal" name="animal"><br>
+                <label for="raca">Raça do Pet</label><br>
+                <input type="text" id="raca" name="raca"><br><br>
+                <button id="enviar">Salvar</button>
+            </form>
+
+        </div>
+
+        <div id="container-lista">
+            <h3>Lista de Pets</h3>
+            
+            <div id="lista-animais">
+
+                <table class="tg">
+                    <thead>
+                        <tr>
+                        <th class="tg-c3ow">ID</th>
+                        <th class="tg-0pky">Nome Pet</th>
+                        <th class="tg-0pky">Nome do Dono</th>
+                        <th class="tg-0pky">Pet</th>
+                        <th class="tg-0pky">Raça</th>
+                        </tr>
+                    </thead>
+                    <tbody id="linhas">
+                        <tr id="linhas" style="display: none;">
+                            <td class="tg-0lax">0</td>
+                            <td class="tg-0lax">na</td>
+                            <td class="tg-0lax">na</td>
+                            <td class="tg-0lax">na</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                
+            </div>
+            
+        </div>
+    </div>
+
+
+    <script src="./jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            listarAnimais();
+
+            // alert(55);
+            $("#enviar").click(function(event){
+
+                event.preventDefault();
+
+                const formulario = $('form').serialize();
+
+                console.log(formulario);
+
+                $.ajax({
+                    url: "http://localhost:8888/save",
+                    method: "post",
+                    data: formulario,
+                    success: function(result){
+    
+                        console.log(result);
+                        
+                        listarAnimais();
+                    }
+                });
+            });
+
+            $("#listar").click(function(event){
+                event.preventDefault();
+
+                
+            });
+
+
+            
+        });
+
+       
+        const listarAnimais = ()=>{
+            $.ajax({
+                url: "http://localhost:8888/lista",
+                method: "get",
+                success: function(result){
+
+                    $("#linhas").html('');
+                    
+                    result.forEach(animal => {
+                        $("#linhas").append(function() {
+                            return `
+                            <tr>
+                                <td class="tg-0lax">${animal.id}</td>
+                                <td class="tg-0lax">${animal.nome_animal}</td>
+                                <td class="tg-0lax">${animal.nome_dono}</td>
+                                <td class="tg-0lax">${animal.animal}</td>
+                                <td class="tg-0lax">${animal.raca}</td>
+                            </tr>
+                            `;
+                        })
+                    });
+                    
+                
+                    console.log(result[0].nome_animal);
+                    // alert(result)
+                }
+            });//end ajax lista
+        }
+    </script>
+
+
+</body>
+</html>
